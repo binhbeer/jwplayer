@@ -165,6 +165,13 @@ export function handleColorOverrides(playerId, skin) {
             ':not(.jw-state-idle) .jw-controlbar',
             '.jw-flag-audio-player .jw-controlbar'
         ], 'background', config.background, true);
+
+        // For touch devices, we want the height of the controlbar to be 88px so it would have a larger touch target.
+        // But we want the background color to only affect the area up to the time slider, which has a height of 61px.
+        // Using a sharp linear gradient to handle this, so need hard-code the transparent area to 27px (88px - 61px)
+        addStyle([
+            '.jw-flag-touch:not(.jw-flag-audio-player):not(.jw-state-idle) .jw-controlbar'
+        ], 'background', `linear-gradient(180deg, transparent 27px, ${config.background} 27px, ${config.background})`, true);
     }
 
     function styleTimeslider(config) {
